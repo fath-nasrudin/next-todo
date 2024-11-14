@@ -3,6 +3,7 @@ import { TaskItem } from '@/components/task-item';
 const tasklist = [
   { id: 1, name: 'list item 1', isDone: false, projectId: 1 },
   { id: 2, name: 'list item 2', isDone: false, projectId: 1 },
+  { id: 3, name: 'list item 3', isDone: false, projectId: 2 },
 ];
 
 export default function Home() {
