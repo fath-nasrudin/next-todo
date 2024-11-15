@@ -61,7 +61,9 @@ const projectReducer = (state: Project[], action: ActionType) => {
 };
 
 const ProjectStateContext = createContext<Project[]>(renderInitialProjects());
-const ProjectDispatchContext = createContext<React.Dispatch<ActionType>>();
+const ProjectDispatchContext = createContext<React.Dispatch<ActionType>>(() => {
+  throw new Error('Dispatch function should be called inside the provider');
+});
 
 export const ProjectProvider = ({
   children,

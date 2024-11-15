@@ -1,9 +1,9 @@
 import ProjectTasklist_ from './page.client';
 
 interface ProjectTasklistProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function ProjectTasklist({

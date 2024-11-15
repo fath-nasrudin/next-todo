@@ -3,8 +3,8 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
 type LeftbarType = {
-  desktopLeftbar?: boolean;
-  mobileLeftbar?: boolean;
+  desktopLeftbar: boolean;
+  mobileLeftbar: boolean;
 };
 
 const initialLeftbar: LeftbarType = {
@@ -12,7 +12,9 @@ const initialLeftbar: LeftbarType = {
   mobileLeftbar: false,
 };
 
-const renderInitialLeftbar = (): LeftbarType => initialLeftbar;
+const renderInitialLeftbar = (initLeftbar: LeftbarType): LeftbarType => {
+  return initLeftbar;
+};
 
 type ActionType =
   | { type: 'LEFTBAR/MOBILE_SHOW' }
@@ -47,8 +49,10 @@ const leftbarReducer = (state: LeftbarType, action: ActionType) => {
   throw new Error('Action type unknown');
 };
 
-const LeftbarStateContext = createContext<LeftbarType>();
-const LeftbarDispatchContext = createContext<React.Dispatch<ActionType>>();
+const LeftbarStateContext = createContext<LeftbarType>(initialLeftbar);
+const LeftbarDispatchContext = createContext<React.Dispatch<ActionType>>(() => {
+  throw new Error('Dispatch function must be used within a Provider');
+});
 
 export const LeftbarProvider = ({
   children,
@@ -57,7 +61,7 @@ export const LeftbarProvider = ({
 }) => {
   const [state, dispatch] = useReducer(
     leftbarReducer,
-    null,
+    initialLeftbar,
     renderInitialLeftbar
   );
   return (

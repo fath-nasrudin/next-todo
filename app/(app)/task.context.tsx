@@ -1,7 +1,6 @@
 'use client';
 
 import { Task, TaskInput } from '@/types';
-import { Key } from 'lucide-react';
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
 const LOCAL_STORAGE_KEY = 'tasks';
@@ -55,15 +54,13 @@ const taskReducer = (state: Task[], action: ActionType) => {
     return state.filter((item) => item.projectId !== action.payload.projectId);
   }
 
-  if (action.type === 'TASK/SET') {
-    return state.filter((item) => item.projectId !== action.payload.projectId);
-  }
-
   throw new Error('Wrong action type');
 };
 
 const TaskStateContext = createContext<Task[]>(renderInitialTasks());
-const TaskDispatchContext = createContext<React.Dispatch<ActionType>>();
+const TaskDispatchContext = createContext<React.Dispatch<ActionType>>(() => {
+  throw new Error('Dispatch function must be used within a Provider');
+});
 
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   // declare reducer

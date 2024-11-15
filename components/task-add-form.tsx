@@ -3,7 +3,7 @@ import { useProjectState } from '@/app/(app)/project.context';
 import { useTaskDispatch } from '@/app/(app)/task.context';
 import { PartiallyRequired } from '@/lib/type-utils';
 import { Task } from '@/types';
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 type TaskAddFormProps = {
@@ -18,7 +18,9 @@ export const TaskAddForm = ({ data, closeForm }: TaskAddFormProps) => {
   const splittedPathname = pathname.split('/');
   const lastPathnameSplitted =
     splittedPathname[splittedPathname.length - 1].split('-');
-  const projectId = lastPathnameSplitted[lastPathnameSplitted.length - 1];
+  const projectId = Number(
+    lastPathnameSplitted[lastPathnameSplitted.length - 1]
+  );
 
   const projects = useProjectState();
   let defaultData;

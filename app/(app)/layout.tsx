@@ -1,12 +1,8 @@
-import Link from 'next/link';
 import React from 'react';
 import { TaskProvider } from './task.context';
 import { ProjectProvider } from './project.context';
-import { ProjectTablist } from './project-tablist';
-import { Icons } from '@/components/icons';
 import { LeftbarProvider } from './leftbar.context';
 import { PageHeader } from './page-header';
-import { LeftbarPage } from './leftbar-page';
 import { LeftbarPageMobile } from './leftbar-page-mobile';
 import { LeftbarPageDesktop } from './leftbar-page-desktop';
 
