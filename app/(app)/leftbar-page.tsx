@@ -4,6 +4,7 @@ import { Icons } from '@/components/icons';
 import { ProjectTablist } from './project-tablist';
 import { useLeftbarDispatch } from './leftbar.context';
 import { ProjectAdd } from './project-add';
+import { DefaultTablist } from './default-tablist';
 
 export const LeftbarPage = () => {
   const leftbarDispatch = useLeftbarDispatch();
@@ -32,11 +33,14 @@ export const LeftbarPage = () => {
         {/* mobile button */}
       </div>
       <div>
-        <div className="px-2 flex justify-between">
-          <div className="  mx-2 font-semibold text-xl">Projects</div>
-          <ProjectAdd />
+        <DefaultTablist />
+        <div className="mt-8">
+          <div className="px-2 flex justify-between">
+            <div className="  mx-2 font-semibold text-xl">Projects</div>
+            <ProjectAdd />
+          </div>
+          <ProjectTablist />
         </div>
-        <ProjectTablist />
       </div>
     </div>
   );

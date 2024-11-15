@@ -21,6 +21,7 @@ export type NavItem = {
   name: string;
   href: string;
   disabled?: boolean;
+  withAction?: boolean;
 };
 
 export type NavItemProject = NavItem & { id: number };

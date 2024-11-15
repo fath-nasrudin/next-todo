@@ -3,10 +3,10 @@
 import { Project, ProjectInput } from '@/types';
 import React, { createContext, useContext, useReducer } from 'react';
 
-const renderInitialProjects = () => [
-  { id: 1, name: 'Home' },
-  { id: 2, name: 'Two words' },
-  { id: 3, name: 'Three words' },
+const renderInitialProjects = (): Project[] => [
+  { id: 1, name: 'Inbox', default: true },
+  { id: 2, name: 'Home' },
+  { id: 3, name: 'Work' },
 ];
 
 type ActionType =

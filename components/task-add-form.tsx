@@ -3,6 +3,7 @@ import { useProjectState } from '@/app/(app)/project.context';
 import { useTaskDispatch } from '@/app/(app)/task.context';
 import { PartiallyRequired } from '@/lib/type-utils';
 import { Task } from '@/types';
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation';
 import { useState } from 'react';
 
 type TaskAddFormProps = {
@@ -12,10 +13,17 @@ type TaskAddFormProps = {
 
 // if the data not undefined, it is mean an edit
 export const TaskAddForm = ({ data, closeForm }: TaskAddFormProps) => {
+  // assume that there are always project id in the end of pathname
+  const pathname = usePathname();
+  const splittedPathname = pathname.split('/');
+  const lastPathnameSplitted =
+    splittedPathname[splittedPathname.length - 1].split('-');
+  const projectId = lastPathnameSplitted[lastPathnameSplitted.length - 1];
+
   const projects = useProjectState();
   let defaultData;
   if (!data) {
-    defaultData = { name: '', projectId: 0 };
+    defaultData = { name: '', projectId: projectId };
   } else {
     defaultData = data;
   }
