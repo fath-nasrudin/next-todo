@@ -1,13 +1,21 @@
 'use client';
 
 import { Project, ProjectInput } from '@/types';
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
-const renderInitialProjects = (): Project[] => [
-  { id: 1, name: 'Inbox', default: true },
-  { id: 2, name: 'Home' },
-  { id: 3, name: 'Work' },
-];
+const PROJECT_KEY = 'projects';
+
+const renderInitialProjects = (): Project[] => {
+  const savedData = localStorage.getItem(PROJECT_KEY);
+  if (savedData) {
+    return JSON.parse(savedData);
+  }
+  return [
+    { id: 1, name: 'Inbox', default: true },
+    { id: 2, name: 'Home' },
+    { id: 3, name: 'Work' },
+  ];
+};
 
 type ActionType =
   | {
@@ -62,6 +70,10 @@ export const ProjectProvider = ({
     null,
     renderInitialProjects
   );
+
+  useEffect(() => {
+    localStorage.setItem(PROJECT_KEY, JSON.stringify(projects));
+  }, [projects]);
 
   return (
     <ProjectStateContext.Provider value={projects}>

@@ -1,15 +1,22 @@
 'use client';
 
 import { Task, TaskInput } from '@/types';
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
-const initialTasks = [
-  { id: 1, name: 'list item 1', isDone: false, projectId: 1 },
-  { id: 2, name: 'list item 2', isDone: false, projectId: 1 },
-  { id: 3, name: 'list item 3', isDone: false, projectId: 2 },
-];
+const LOCAL_STORAGE_KEY = 'tasks';
 
-const renderInitialTasks = () => initialTasks;
+const renderInitialTasks = () => {
+  const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+  if (savedData) {
+    return JSON.parse(savedData);
+  }
+  return [
+    { id: 1, name: 'list item 1', isDone: false, projectId: 1 },
+    { id: 2, name: 'list item 2', isDone: false, projectId: 1 },
+    { id: 3, name: 'list item 3', isDone: false, projectId: 2 },
+  ];
+};
 
 type ActionType =
   | { type: 'TASK/ADD'; payload: { taskData: TaskInput } }
@@ -56,6 +63,10 @@ const TaskDispatchContext = createContext<React.Dispatch<ActionType>>();
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   // declare reducer
   const [tasks, dispatch] = useReducer(taskReducer, null, renderInitialTasks);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <TaskStateContext.Provider value={tasks}>
