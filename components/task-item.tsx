@@ -28,8 +28,13 @@ export const TaskItem = ({ item }: TaskItemProps) => {
           <input
             type="checkbox"
             className=""
-            onChange={() => setIsChecked((c) => !c)}
-            checked={isChecked}
+            onChange={() => {
+              taskDispatch({
+                type: 'TASK/UPDATE',
+                payload: { taskData: { id: item.id, isDone: !item.isDone } },
+              });
+            }}
+            checked={item.isDone}
           />
           <div className="flex-1 flex">
             <div className={cn(isChecked && 'line-through', 'mr-auto')}>

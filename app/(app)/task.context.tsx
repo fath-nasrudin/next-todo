@@ -1,6 +1,6 @@
 'use client';
 
-import { Task, TaskInput } from '@/types';
+import { Task, TaskInput, TaskUpdate } from '@/types';
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
 const LOCAL_STORAGE_KEY = 'tasks';
@@ -17,7 +17,7 @@ type ActionType =
   | { type: 'TASK/SET'; payload: { tasks: Task[] } }
   | { type: 'TASK/ADD'; payload: { taskData: TaskInput } }
   | { type: 'TASK/DELETE'; payload: { taskData: { id: number } } }
-  | { type: 'TASK/UPDATE'; payload: { taskData: TaskInput } }
+  | { type: 'TASK/UPDATE'; payload: { taskData: TaskUpdate } }
   | { type: 'TASK/DELETE_BY_PROJECTID'; payload: { projectId: number } };
 
 const taskReducer = (state: Task[], action: ActionType) => {

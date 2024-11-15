@@ -9,6 +9,7 @@ export type Task = {
 };
 
 export type TaskInput = PartiallyRequired<Task, 'name' | 'projectId'>;
+export type TaskUpdate = Partial<Task>;
 
 export type Project = {
   id: number;
