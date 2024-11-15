@@ -9,10 +9,18 @@ type TaskAddFormProps = {
   data?: PartiallyRequired<Task, 'name' | 'projectId'> | undefined;
   closeForm: () => void;
 };
+
+// if the data not undefined, it is mean an edit
 export const TaskAddForm = ({ data, closeForm }: TaskAddFormProps) => {
   const projects = useProjectState();
-  if (!data) data = { name: '', projectId: 0 };
-  const [taskData, setTaskData] = useState(data);
+  let defaultData;
+  if (!data) {
+    defaultData = { name: '', projectId: 0 };
+  } else {
+    defaultData = data;
+  }
+
+  const [taskData, setTaskData] = useState(defaultData);
   const taskDispatch = useTaskDispatch();
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -60,7 +68,7 @@ export const TaskAddForm = ({ data, closeForm }: TaskAddFormProps) => {
           className="px-4 py-1 rounded-md bg-gray-100"
           onClick={(e) => {
             e.preventDefault();
-            setTaskData(data);
+            setTaskData(defaultData);
             closeForm();
           }}
         >
@@ -70,23 +78,29 @@ export const TaskAddForm = ({ data, closeForm }: TaskAddFormProps) => {
           className="px-4 py-1 rounded-md bg-red-400 text-white font-semibold"
           onClick={(e) => {
             e.preventDefault();
-            // dispatch add task
-            taskDispatch({
-              type: 'TASK/ADD',
-              payload: {
-                taskData: {
-                  ...taskData,
-                  projectId: taskData.projectId
-                    ? taskData.projectId
-                    : projects[0].id,
+            //
+            if (!data) {
+              taskDispatch({
+                type: 'TASK/ADD',
+                payload: {
+                  taskData: {
+                    ...taskData,
+                    projectId: taskData.projectId
+                      ? taskData.projectId
+                      : projects[0].id,
+                  },
                 },
-              },
-            });
+              });
+            } else {
+              taskDispatch({ type: 'TASK/UPDATE', payload: { taskData } });
+            }
             // reset form
-            setTaskData(data);
+            setTaskData(defaultData);
+
+            if (data) closeForm();
           }}
         >
-          Add Task
+          {data ? 'Save' : 'Add Task'}
         </button>
       </div>
     </form>
