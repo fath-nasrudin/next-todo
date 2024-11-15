@@ -12,7 +12,10 @@ export type TaskInput = PartiallyRequired<Task, 'name' | 'projectId'>;
 export type Project = {
   id: number;
   name: string;
+  default?: boolean;
 };
+
+export type ProjectInput = PartiallyRequired<Project, 'name'>;
 
 export type NavItem = {
   name: string;
