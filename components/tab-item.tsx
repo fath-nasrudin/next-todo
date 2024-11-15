@@ -9,6 +9,7 @@ import { useProjectDispatch } from '@/app/(app)/project.context';
 import { useTaskDispatch } from '@/app/(app)/task.context';
 import { useState } from 'react';
 import { ProjectForm } from '@/app/(app)/project-form';
+import { useLeftbarDispatch } from '@/app/(app)/leftbar.context';
 
 interface TabItem {
   item: TablistItem;
@@ -21,6 +22,7 @@ export const TabItem = ({ item, index, arr }: TabItem) => {
   const segment = useSelectedLayoutSegments();
   const projectDispatch = useProjectDispatch();
   const taskDispatch = useTaskDispatch();
+  const leftbarDispatch = useLeftbarDispatch();
 
   const closeForm = () => setIsEdit(false);
   const openForm = () => setIsEdit(true);
@@ -36,6 +38,7 @@ export const TabItem = ({ item, index, arr }: TabItem) => {
           : 'hover:bg-foreground/5'
       )}
       href={item.href}
+      onClick={() => leftbarDispatch({ type: 'LEFTBAR/MOBILE_HIDE' })}
     >
       {isEdit && <ProjectForm closeForm={closeForm} projectId={item.id} />}
 
