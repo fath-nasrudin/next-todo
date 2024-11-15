@@ -9,7 +9,7 @@ type LeftbarType = {
 
 const initialLeftbar: LeftbarType = {
   desktopLeftbar: true,
-  mobileLeftbar: true,
+  mobileLeftbar: false,
 };
 
 const renderInitialLeftbar = (): LeftbarType => initialLeftbar;
