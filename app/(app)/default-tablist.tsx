@@ -10,6 +10,15 @@ export const DefaultTablist = () => {
 
   const userProjects = projects.filter((p) => p.default);
 
+  const navItems: NavItemProject[] = [
+    {
+      name: 'All',
+      href: '/',
+      id: -1,
+      Icon: Icons.inbox,
+    },
+  ];
+
   const navItemProjects: NavItemProject[] = userProjects.map((item) => {
     const kebabName = item.name.trim().toLowerCase().split(' ').join('-');
     const url = `/project/${kebabName}-${item.id}`;
@@ -22,6 +31,7 @@ export const DefaultTablist = () => {
       Icon: Icons.inbox,
     };
   });
+  navItems.push(...navItemProjects);
 
-  return <Tablist items={navItemProjects} />;
+  return <Tablist items={navItems} />;
 };

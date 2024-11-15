@@ -25,12 +25,14 @@ export const TabItem = ({ item, index, arr }: TabItem) => {
   const closeForm = () => setIsEdit(false);
   const openForm = () => setIsEdit(true);
 
+  console.log(segment.join('/'));
   return (
     <Link
       key={item.href}
       className={cn(
         'py-2 px-4 rounded-md ',
-        item.href.startsWith(`/${segment.join('/')}`)
+        (item.href === '/' && !segment.join('/')) ||
+          (segment.join('/') && item.href.startsWith(`/${segment.join('/')}`))
           ? 'bg-red-100 text-red-600'
           : 'hover:bg-foreground/5'
       )}

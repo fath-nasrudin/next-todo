@@ -4,16 +4,22 @@ import { TaskAdd } from './task-add';
 
 interface TaskContainerProps {
   tasks: Task[];
-  project: Project | undefined | null;
+  project?: Project | undefined | null;
+  title?: string;
 }
 
-export const TaskContainer = ({ tasks, project }: TaskContainerProps) => {
+export const TaskContainer = ({
+  tasks,
+  project,
+  title,
+}: TaskContainerProps) => {
+  const mainTitle = project?.name || title;
   return (
     <div className="mt-12">
       <div className=" py-4 px-8 md:px-14 pb-20">
-        {project && (
+        {mainTitle && (
           <div className=" max-w-screen-md mx-auto font-semibold text-3xl">
-            {project.name}
+            {mainTitle}
           </div>
         )}
 
