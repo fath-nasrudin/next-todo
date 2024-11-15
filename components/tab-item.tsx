@@ -25,7 +25,6 @@ export const TabItem = ({ item, index, arr }: TabItem) => {
   const closeForm = () => setIsEdit(false);
   const openForm = () => setIsEdit(true);
 
-  console.log(segment.join('/'));
   return (
     <Link
       key={item.href}
