@@ -31,7 +31,7 @@ export const TabItem = ({ item, index, arr }: TabItem) => {
       className={cn(
         'py-2 px-4 rounded-md ',
         (item.href === '/' && !segment.join('/')) ||
-          (segment.join('/') && item.href.startsWith(`/${segment.join('/')}`))
+          (segment.join('/') && item.href === `/${segment.join('/')}`)
           ? 'bg-red-100 text-red-600'
           : 'hover:bg-foreground/5'
       )}
