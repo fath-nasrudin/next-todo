@@ -6,10 +6,6 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react';
 const PROJECT_KEY = 'projects';
 
 const renderInitialProjects = (): Project[] => {
-  const savedData = localStorage.getItem(PROJECT_KEY);
-  if (savedData) {
-    return JSON.parse(savedData);
-  }
   return [
     { id: 1, name: 'Inbox', default: true },
     { id: 2, name: 'Home' },
@@ -18,6 +14,10 @@ const renderInitialProjects = (): Project[] => {
 };
 
 type ActionType =
+  | {
+      type: 'PROJECT/SET';
+      payload: { projects: Project[] };
+    }
   | {
       type: 'PROJECT/ADD';
       payload: { projectData: ProjectInput };
@@ -32,6 +32,10 @@ type ActionType =
     };
 
 const projectReducer = (state: Project[], action: ActionType) => {
+  if (action.type === 'PROJECT/SET') {
+    return action.payload.projects;
+  }
+
   if (action.type === 'PROJECT/ADD') {
     const newProject: Project = {
       id: Number(Date.now()),
@@ -70,6 +74,16 @@ export const ProjectProvider = ({
     null,
     renderInitialProjects
   );
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(PROJECT_KEY);
+    if (savedData) {
+      dispatch({
+        type: 'PROJECT/SET',
+        payload: { projects: JSON.parse(savedData) },
+      });
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(PROJECT_KEY, JSON.stringify(projects));

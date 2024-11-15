@@ -1,16 +1,12 @@
 'use client';
 
 import { Task, TaskInput } from '@/types';
+import { Key } from 'lucide-react';
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
 const LOCAL_STORAGE_KEY = 'tasks';
 
 const renderInitialTasks = () => {
-  const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-  if (savedData) {
-    return JSON.parse(savedData);
-  }
   return [
     { id: 1, name: 'list item 1', isDone: false, projectId: 1 },
     { id: 2, name: 'list item 2', isDone: false, projectId: 1 },
@@ -19,12 +15,17 @@ const renderInitialTasks = () => {
 };
 
 type ActionType =
+  | { type: 'TASK/SET'; payload: { tasks: Task[] } }
   | { type: 'TASK/ADD'; payload: { taskData: TaskInput } }
   | { type: 'TASK/DELETE'; payload: { taskData: { id: number } } }
   | { type: 'TASK/UPDATE'; payload: { taskData: TaskInput } }
   | { type: 'TASK/DELETE_BY_PROJECTID'; payload: { projectId: number } };
 
 const taskReducer = (state: Task[], action: ActionType) => {
+  if (action.type === 'TASK/SET') {
+    return action.payload.tasks;
+  }
+
   if (action.type === 'TASK/ADD') {
     const newTask = {
       id: Number(Date.now()),
@@ -54,6 +55,10 @@ const taskReducer = (state: Task[], action: ActionType) => {
     return state.filter((item) => item.projectId !== action.payload.projectId);
   }
 
+  if (action.type === 'TASK/SET') {
+    return state.filter((item) => item.projectId !== action.payload.projectId);
+  }
+
   throw new Error('Wrong action type');
 };
 
@@ -63,6 +68,13 @@ const TaskDispatchContext = createContext<React.Dispatch<ActionType>>();
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   // declare reducer
   const [tasks, dispatch] = useReducer(taskReducer, null, renderInitialTasks);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedData) {
+      dispatch({ type: 'TASK/SET', payload: { tasks: JSON.parse(savedData) } });
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
