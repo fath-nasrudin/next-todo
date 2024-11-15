@@ -3,6 +3,11 @@ import React from 'react';
 import { TaskProvider } from './task.context';
 import { ProjectProvider } from './project.context';
 import { ProjectTablist } from './project-tablist';
+import { Icons } from '@/components/icons';
+import { LeftbarProvider } from './leftbar.context';
+import { PageHeader } from './page-header';
+import { LeftbarPage } from './leftbar-page';
+import { LeftbarPageMobile } from './leftbar-page-mobile';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -10,27 +15,24 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <ProjectProvider>
-      <TaskProvider>
-        <div className="min-h-screen flex">
-          {/* Leftbar */}
-          <div className="basis-[300px] hidden md:block shadow-md bg-gray-100 dark:bg-transparent px-4 py-8">
-            <ProjectTablist />
-          </div>
-          {/* mainbar */}
-          <div className="flex-1 flex flex-col">
-            <div className="border-b-[1px] border-b-foreground/10">
-              <div className="py-2 px-4">
-                <Link href={'/'} className="font-bold text-xl text-red-500">
-                  NextTodo
-                </Link>
-              </div>
+    <LeftbarProvider>
+      <ProjectProvider>
+        <TaskProvider>
+          <div className="min-h-screen flex">
+            {/* Leftbar */}
+            <LeftbarPage />
+            <LeftbarPageMobile />
+            {/* mainbar */}
+            <div className="flex-1 flex flex-col">
+              {/* header */}
+              <PageHeader />
+
+              {children}
             </div>
-            {children}
           </div>
-        </div>
-      </TaskProvider>
-    </ProjectProvider>
+        </TaskProvider>
+      </ProjectProvider>
+    </LeftbarProvider>
   );
 };
 

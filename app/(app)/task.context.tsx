@@ -23,7 +23,7 @@ const taskReducer = (state: Task[], action: ActionType) => {
       id: Number(Date.now()),
       name: action.payload.taskData.name,
       projectId: Number(action.payload.taskData.projectId),
-      isDOne: !!action.payload.taskData.isDone,
+      isDone: !!action.payload.taskData.isDone,
     };
     return [...state, newTask];
   }
