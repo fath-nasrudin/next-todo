@@ -1,5 +1,6 @@
 import { Project, Task } from '@/types';
 import { TaskItem } from './task-item';
+import { TaskAdd } from './task-add';
 
 interface TaskContainerProps {
   tasks: Task[];
@@ -21,6 +22,7 @@ export const TaskContainer = ({ tasks, project }: TaskContainerProps) => {
               <TaskItem key={item.id} item={item} />
             ))}
           </ul>
+          <TaskAdd />
         </div>
       </div>
     </div>

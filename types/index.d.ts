@@ -1,9 +1,13 @@
+import { PartiallyRequired } from '@/lib/type-utils';
+
 export type Task = {
   id: number;
   name: string;
   isDone: boolean;
   projectId: number;
 };
+
+export type TaskInput = PartiallyRequired<Task, 'name' | 'projectId'>;
 
 export type Project = {
   id: number;
