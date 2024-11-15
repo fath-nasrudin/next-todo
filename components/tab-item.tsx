@@ -39,7 +39,10 @@ export const TabItem = ({ item, index, arr }: TabItem) => {
       {isEdit && <ProjectForm closeForm={closeForm} projectId={item.id} />}
 
       <div className="flex">
-        <div className="mr-auto">{item.name}</div>
+        <div className="mr-auto flex items-center gap-2">
+          {item.Icon && <item.Icon strokeWidth={1} size={20} className="" />}
+          <div>{item.name}</div>
+        </div>
 
         {/* actions */}
         {item.withAction && (

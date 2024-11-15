@@ -3,6 +3,7 @@
 import { Tablist } from '@/components/tablist';
 import { useProjectState } from './project.context';
 import { NavItemProject, Project } from '@/types';
+import { Icons } from '@/components/icons';
 
 export const ProjectTablist = () => {
   const projects: Project[] = useProjectState();
@@ -13,7 +14,13 @@ export const ProjectTablist = () => {
     const kebabName = item.name.trim().toLowerCase().split(' ').join('-');
     const url = `/project/${kebabName}-${item.id}`;
 
-    return { name: item.name, href: url, id: item.id, withAction: true };
+    return {
+      name: item.name,
+      href: url,
+      id: item.id,
+      withAction: true,
+      Icon: Icons.hash,
+    };
   });
 
   return <Tablist items={navItemProjects} />;

@@ -1,3 +1,4 @@
+import { Icon } from '@/components/icons';
 import { PartiallyRequired } from '@/lib/type-utils';
 
 export type Task = {
@@ -22,6 +23,7 @@ export type NavItem = {
   href: string;
   disabled?: boolean;
   withAction?: boolean;
+  Icon?: Icon;
 };
 
 export type NavItemProject = NavItem & { id: number };
