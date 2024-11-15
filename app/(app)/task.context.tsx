@@ -14,7 +14,8 @@ const renderInitialTasks = () => initialTasks;
 type ActionType =
   | { type: 'TASK/ADD'; payload: { taskData: TaskInput } }
   | { type: 'TASK/DELETE'; payload: { taskData: { id: number } } }
-  | { type: 'TASK/UPDATE'; payload: { taskData: TaskInput } };
+  | { type: 'TASK/UPDATE'; payload: { taskData: TaskInput } }
+  | { type: 'TASK/DELETE_BY_PROJECTID'; payload: { projectId: number } };
 
 const taskReducer = (state: Task[], action: ActionType) => {
   if (action.type === 'TASK/ADD') {
@@ -40,6 +41,10 @@ const taskReducer = (state: Task[], action: ActionType) => {
   if (action.type === 'TASK/DELETE') {
     const id = action.payload.taskData.id;
     return state.filter((item) => item.id !== id);
+  }
+
+  if (action.type === 'TASK/DELETE_BY_PROJECTID') {
+    return state.filter((item) => item.projectId !== action.payload.projectId);
   }
 
   throw new Error('Wrong action type');

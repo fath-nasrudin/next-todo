@@ -23,4 +23,6 @@ export type NavItem = {
   disabled?: boolean;
 };
 
-export type TablistItem = NavItem;
+export type NavItemProject = NavItem & { id: number };
+
+export type TablistItem = NavItemProject;

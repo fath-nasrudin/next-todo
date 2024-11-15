@@ -49,9 +49,7 @@ const projectReducer = (state: Project[], action: ActionType) => {
 };
 
 const ProjectStateContext = createContext<Project[]>(renderInitialProjects());
-const ProjectDispatchContext = createContext<
-  React.Dispatch<ActionType> | undefined
->(undefined);
+const ProjectDispatchContext = createContext<React.Dispatch<ActionType>>();
 
 export const ProjectProvider = ({
   children,
