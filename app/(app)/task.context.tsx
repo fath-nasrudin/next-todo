@@ -11,10 +11,13 @@ const initialTasks = [
 
 const renderInitialTasks = () => initialTasks;
 
-type ActionType = { type: 'TASK/ADD'; payload: { taskData: TaskInput } };
+type ActionType =
+  | { type: 'TASK/ADD'; payload: { taskData: TaskInput } }
+  | { type: 'TASK/DELETE'; payload: { taskData: { id: number } } }
+  | { type: 'TASK/UPDATE'; payload: { taskData: TaskInput } };
 
 const taskReducer = (state: Task[], action: ActionType) => {
-  if ((action.type = 'TASK/ADD')) {
+  if (action.type === 'TASK/ADD') {
     const newTask = {
       id: Number(Date.now()),
       name: action.payload.taskData.name,
@@ -23,6 +26,22 @@ const taskReducer = (state: Task[], action: ActionType) => {
     };
     return [...state, newTask];
   }
+
+  if (action.type === 'TASK/UPDATE') {
+    const id = action.payload.taskData.id;
+    return state.map((item) => {
+      if (item.id === id) {
+        item = { ...item, ...action.payload.taskData };
+      }
+      return item;
+    });
+  }
+
+  if (action.type === 'TASK/DELETE') {
+    const id = action.payload.taskData.id;
+    return state.filter((item) => item.id !== id);
+  }
+
   throw new Error('Wrong action type');
 };
 
