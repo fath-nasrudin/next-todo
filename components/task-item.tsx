@@ -12,7 +12,6 @@ interface TaskItemProps {
 }
 
 export const TaskItem = ({ item }: TaskItemProps) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const taskDispatch = useTaskDispatch();
   const closeForm = () => setIsEdit(false);
@@ -37,7 +36,7 @@ export const TaskItem = ({ item }: TaskItemProps) => {
             checked={item.isDone}
           />
           <div className="flex-1 flex">
-            <div className={cn(isChecked && 'line-through', 'mr-auto')}>
+            <div className={cn(item.isDone && 'line-through', 'mr-auto')}>
               {item.name}
             </div>
             <div className="flex gap-2">
