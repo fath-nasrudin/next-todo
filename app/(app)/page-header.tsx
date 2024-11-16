@@ -9,7 +9,7 @@ export const PageHeader = () => {
   const { desktopLeftbar } = useLeftbarState();
   return (
     <div className="border-b-[1px] border-b-foreground/10 flex items-center">
-      <div className="py-2 px-4 flex items-center gap-2">
+      <div className="w-full py-2 px-4 flex items-center gap-2">
         {/* Desktop Leftbar toggle button */}
         <button
           className={`hidden ${!desktopLeftbar && 'md:block'}`}
@@ -26,8 +26,15 @@ export const PageHeader = () => {
           <Icons.panelLeft className={` $text-foreground/60`} />
         </button>
 
-        <Link href={'/'} className="font-bold text-xl text-red-500">
+        <Link href={'/'} className="font-bold text-xl text-red-500 mr-auto">
           NextTodo
+        </Link>
+        <Link
+          href="https://github.com/fath-nasrudin/next-todo"
+          target="_blank"
+          className="text-red-500 text-sm"
+        >
+          Source Code
         </Link>
       </div>
     </div>
